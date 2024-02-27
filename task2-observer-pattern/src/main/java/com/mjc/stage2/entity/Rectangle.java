@@ -4,14 +4,14 @@ import com.mjc.stage2.Observable;
 import com.mjc.stage2.Observer;
 import com.mjc.stage2.event.RectangleEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Rectangle implements Observable {
     private int id;
     private double sideA;
     private double sideB;
-    private List<Observer> observers;
-    private String update = "No updates.";
+    private List<Observer> observers = new ArrayList<>();
 
     public Rectangle(int id, double sideA, double sideB) {
         this.id = id;
@@ -33,7 +33,6 @@ public class Rectangle implements Observable {
 
     public void setSideA(double sideA) {
         this.sideA = sideA;
-        update = String.format("Side A = %e", sideA);
         notifyObserver();
     }
 
@@ -43,7 +42,6 @@ public class Rectangle implements Observable {
 
     public void setSideB(double sideB) {
         this.sideB = sideB;
-        update = String.format("Side B = %e", sideB);
         notifyObserver();
     }
 
@@ -59,8 +57,9 @@ public class Rectangle implements Observable {
 
     @Override
     public void notifyObserver() {
+        RectangleEvent event = new RectangleEvent(this);
         for (Observer observer : observers) {
-            observer.handleEvent(new RectangleEvent(update));
+            observer.handleEvent(new RectangleEvent(event));
         }
     }
 }

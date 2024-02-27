@@ -1,7 +1,7 @@
 package com.mjc.stage2;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShopStock {
     private final List<Product> productList;
@@ -11,12 +11,8 @@ public class ShopStock {
     }
 
     public List<Product> executeFilteringStrategy(FilteringStrategy filteringStrategy) {
-        List<Product> filteredProducts = new ArrayList<>();
-        for (Product product : productList) {
-            if (filteringStrategy.filter(product)) {
-                filteredProducts.add(product);
-            }
-        }
-        return filteredProducts;
+        return productList.stream()
+                .filter(filteringStrategy::filter)
+                .collect(Collectors.toList());
     }
 }

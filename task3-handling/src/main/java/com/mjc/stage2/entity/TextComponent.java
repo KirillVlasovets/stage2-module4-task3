@@ -13,21 +13,28 @@ public class TextComponent extends AbstractTextComponent {
 
     @Override
     public String operation() {
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (AbstractTextComponent component : componentList) {
+            builder.append(component.getComponentType())
+                    .append(componentType.getDelimiter());
+        }
+        return builder.toString();
     }
 
     @Override
     public void add(AbstractTextComponent textComponent) {
         componentList.add(textComponent);
+        size += textComponent.getSize();
     }
 
     @Override
     public void remove(AbstractTextComponent textComponent) {
         componentList.remove(textComponent);
+        size -= textComponent.getSize();
     }
 
     @Override
     public int getSize() {
-        return componentList.size();
+        return size;
     }
 }
