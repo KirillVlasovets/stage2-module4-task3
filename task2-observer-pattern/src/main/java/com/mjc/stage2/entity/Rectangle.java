@@ -11,7 +11,7 @@ public class Rectangle implements Observable {
     private int id;
     private double sideA;
     private double sideB;
-    private List<Observer> observers = new ArrayList<>();
+    private final List<Observer> observers = new ArrayList<>();
 
     public Rectangle(int id, double sideA, double sideB) {
         this.id = id;
@@ -59,7 +59,7 @@ public class Rectangle implements Observable {
     public void notifyObserver() {
         RectangleEvent event = new RectangleEvent(this);
         for (Observer observer : observers) {
-            observer.handleEvent(new RectangleEvent(event));
+            observer.handleEvent(event);
         }
     }
 }
